@@ -7,9 +7,7 @@ for i in range(n):
     li.append(elements)
 
 print(li)
-
 position = 0
-
 for i in range(n):
     if li[i] != 0:
         li[position] = li[i]
