@@ -1,4 +1,4 @@
-# Singly Linear Linked List - Insert at Position
+# Singly Linear Linked List - Deletion
 
 class Node:
     def __init__(self, value):
@@ -35,6 +35,19 @@ class SLL:
 
             new_node.next = temp.next
             temp.next = new_node
+    def delete(self,value):
+        temp=self.head
+        if temp.data==value:
+            self.head=self.head.next
+        else:
+            while(temp.data!=value and temp.next !=None):
+                prev=temp
+                temp=temp.next
+            if temp.next==None:
+                print("value not found")
+                return
+            prev.next=temp.next
+            temp=None
 
     def print_list(self):
         temp = self.head
@@ -53,4 +66,7 @@ list1.append(Node(40))
 
 list1.insert(Node(25), 3)
 
+list1.print_list()
+print()
+list1.delete(200)
 list1.print_list()
