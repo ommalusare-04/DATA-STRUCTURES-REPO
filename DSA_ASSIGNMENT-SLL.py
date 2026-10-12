@@ -1,54 +1,70 @@
+
 class Node:
-    def _init_(self, data):
+    def __init__(self, data):
         self.data = data
         self.next = None
 
 
 class SinglyLinkedList:
-    def _init_(self):
+    def __init__(self):
         self.head = None
 
-    def create_list(self, values):  
+    def create_list(self, values):
         self.head = None
         for value in values:
             self.insert_at_end(value)
 
     def insert_at_end(self, value):
         new_node = Node(value)
+
         if self.head is None:
             self.head = new_node
             return
 
         curr = self.head
+
         while curr.next is not None:
             curr = curr.next
+
         curr.next = new_node
 
     def traverse(self):
         curr = self.head
+
         if curr is None:
             print("Linked list is empty")
             return
 
         values = []
+
         while curr is not None:
             values.append(str(curr.data))
             curr = curr.next
+
         print(" -> ".join(values))
 
     def insert_at_position(self, position, value):
+        if position < 1:
+            print("Invalid position")
+            return
+
         new_node = Node(value)
 
-        if position <= 1 or self.head is None:
+        if position == 1:
             new_node.next = self.head
             self.head = new_node
             return
 
         curr = self.head
         index = 1
-        while curr.next is not None and index < position - 1:
+
+        while curr is not None and index < position - 1:
             curr = curr.next
             index += 1
+
+        if curr is None:
+            print("Invalid position")
+            return
 
         new_node.next = curr.next
         curr.next = new_node
@@ -82,6 +98,7 @@ class SinglyLinkedList:
             if curr.data == value:
                 prev.next = curr.next
                 return
+
             prev = curr
             curr = curr.next
 
@@ -110,8 +127,9 @@ class SinglyLinkedList:
         return sums
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     ll = SinglyLinkedList()
+
     ll.create_list([10, 20, 30, 40, 50, 60])
 
     print("Original list:")
@@ -122,7 +140,7 @@ if _name_ == "_main_":
     ll.traverse()
 
     middle = ll.find_middle()
-    print(f"Middle node value: {middle}")
+    print("Middle node value:", middle)
 
     ll.delete_node(30)
     print("After deleting 30:")
