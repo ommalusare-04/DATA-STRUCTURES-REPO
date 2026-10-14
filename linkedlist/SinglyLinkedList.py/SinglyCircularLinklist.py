@@ -4,32 +4,46 @@ class Node:
         self.next = None
 
 
-class SLL:
+class SCLL:
     def __init__(self):
         self.head = None
 
     def append(self, new_node):
         if self.head == None:
             self.head = new_node
+            new_node.next = self.head
         else:
             temp = self.head
-            while temp.next:
+
+            while temp.next != self.head:
                 temp = temp.next
+
             temp.next = new_node
+            new_node.next = self.head
 
     def insert(self, new_node, pos):
         if pos == 1:
-            new_node.next = self.head
-            self.head = new_node
+            if self.head == None:
+                self.head = new_node
+                new_node.next = self.head
+            else:
+                temp = self.head
+
+                while temp.next != self.head:
+                    temp = temp.next
+
+                new_node.next = self.head
+                self.head = new_node
+                temp.next = self.head
         else:
             temp = self.head
             p = 1
 
-            while temp and p < pos - 1:
+            while p < pos - 1 and temp.next != self.head:
                 temp = temp.next
                 p += 1
 
-            if temp == None:
+            if p != pos - 1:
                 print("Invalid position")
                 return
 
@@ -37,90 +51,57 @@ class SLL:
             temp.next = new_node
 
     def delete(self, value):
-        temp = self.head
-
-        if temp == None:
+        if self.head == None:
             print("List is empty")
             return
 
+        temp = self.head
+
         if temp.data == value:
-            self.head = temp.next
+            if temp.next == self.head:
+                self.head = None
+                return
+
+            last = self.head
+
+            while last.next != self.head:
+                last = last.next
+
+            self.head = self.head.next
+            last.next = self.head
             return
 
-        prev = temp
-        temp = temp.next
+        prev = self.head
+        temp = self.head.next
 
-        while temp and temp.data != value:
+        while temp != self.head and temp.data != value:
             prev = temp
             temp = temp.next
 
-        if temp == None:
+        if temp == self.head:
             print("Value is not present in the list")
             return
 
         prev.next = temp.next
 
-    def reverse(self):
-        curr = self.head
-        prev = None
-
-        while curr:
-            nextnode = curr.next
-            curr.next = prev
-            prev = curr
-            curr = nextnode
-
-        self.head = prev
-
-    def findmid_del(self):
-        if self.head == None:
-            print("List is empty")
-            return
-
-        temp = self.head
-        temp1 = self.head
-        prev = None
-
-        while temp1 and temp1.next:
-            prev = temp
-            temp = temp.next
-            temp1 = temp1.next.next
-
-        print("Middle Node:", temp.data)
-
-        if prev == None:
-            self.head = temp.next
-        else:
-            prev.next = temp.next
-
-    def del_first_last(self):
-        if self.head == None:
-            print("List is empty")
-            return
-
-        if self.head.next == None:
-            self.head = None
-            return
-
-        self.head = self.head.next
-
-        temp = self.head
-        while temp.next.next:
-            temp = temp.next
-
-        temp.next = None
-
     def print(self):
+        if self.head == None:
+            print("List is empty")
+            return
+
         temp = self.head
 
-        while temp:
+        while True:
             print(temp.data, end=" ")
             temp = temp.next
+
+            if temp == self.head:
+                break
 
         print()
 
 
-list1 = SLL()
+list1 = SCLL()
 
 list1.append(Node(10))
 list1.append(Node(20))
@@ -141,15 +122,8 @@ list1.print()
 list1.delete(2)
 list1.print()
 
-list1.delete(3)
+list1.delete(10)
 list1.print()
 
-print("Reversed LL:")
-list1.reverse()
-list1.print()
-
-list1.findmid_del()
-list1.print()
-
-list1.del_first_last()
+list1.delete(100)
 list1.print()
