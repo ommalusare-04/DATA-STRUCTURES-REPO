@@ -8,7 +8,7 @@ class Node:
 class DLL:
     def __init__(self):
         self.head = None
-
+        
     def insert(self, new_node, pos):
         if pos == 1:
             new_node.next = self.head
@@ -25,17 +25,13 @@ class DLL:
         while p < pos - 1 and temp != None:
             temp = temp.next
             p += 1
-
         if temp == None:
             print("Invalid position")
             return
-
         new_node.next = temp.next
         new_node.prev = temp
-
         if temp.next != None:
             temp.next.prev = new_node
-
         temp.next = new_node
 
     def traversal(self):
