@@ -1,3 +1,4 @@
+
 class Node:
     def __init__(self, value):
         self.data = value
@@ -51,25 +52,18 @@ class DLL:
 
         print()
 
-    def delete_node(self, value):
-            if self.head is None:
-                print("Linked list is empty")
-                return
-    
-            if self.head.data == value:
-                self.head = self.head.next
-                self.head.prev=None
-    
-            prev = self.head
-            curr = self.head.next
-    
-            while curr is not None:
-                if curr.data == value:
-                    prev.next = curr.next
-                    return
-                prev = curr
-                curr = curr.next
-        
+    def reverse(self):
+        temp = self.head
+        prev = None
+
+        while temp != None:
+            prev = temp.prev
+            temp.prev = temp.next
+            temp.next = prev
+            temp = temp.prev
+
+        if prev != None:
+            self.head = prev
 
 
 list1 = DLL()
@@ -79,4 +73,10 @@ list1.insert(Node(20), 2)
 list1.insert(Node(30), 3)
 list1.insert(Node(40), 4)
 
+print("Original list:")
+list1.traversal()
+
+list1.reverse()
+
+print("Reversed list:")
 list1.traversal()
