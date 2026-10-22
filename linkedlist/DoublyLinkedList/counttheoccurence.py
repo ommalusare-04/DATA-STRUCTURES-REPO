@@ -61,7 +61,7 @@ class DLL:
             temp.data==value
             temp=temp.next
             count+=1
-        print(count)
+        print(f"count of value is: {count}")
 
     
 
