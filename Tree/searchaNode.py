@@ -7,7 +7,7 @@ class Node:
 
 
 class BST:
-    count=1
+    count=0
     def __init__(self):
         self.root = None
 
