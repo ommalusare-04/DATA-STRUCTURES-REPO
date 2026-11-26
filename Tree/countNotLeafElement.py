@@ -1,3 +1,4 @@
+
 class Node:
     def __init__(self, value):
         self.left = None
@@ -30,39 +31,6 @@ class BST:
                     return
                 temp = temp.right
 
-    # Delete a node
-    def del_node(self, rt, val):
-        if rt is None:
-            return None
-
-        if val < rt.data:
-            rt.left = self.del_node(rt.left, val)
-
-        elif val > rt.data:
-            rt.right = self.del_node(rt.right, val)
-
-        else:
-            if rt.left is None:
-                return rt.right
-
-            if rt.right is None:
-                return rt.left
-
-            succ = self.get_successor(rt)
-            rt.data = succ.data
-            rt.right = self.del_node(rt.right, succ.data)
-
-        return rt
-
-    # Find inorder successor
-    def get_successor(self, temp):
-        temp = temp.right
-
-        while temp.left is not None:
-            temp = temp.left
-
-        return temp
-
     # Inorder Traversal
     def inorder(self, rt):
         if rt is None:
@@ -71,18 +39,6 @@ class BST:
         self.inorder(rt.left)
         print(rt.data, end=" ")
         self.inorder(rt.right)
-
-    # Count leaf nodes
-    def count_leaf(self, rt):
-        if rt is None:
-            return
-
-        self.count_leaf(rt.left)
-
-        if rt.left is None and rt.right is None:
-            self.cnt += 1
-
-        self.count_leaf(rt.right)
 
     # Preorder Traversal
     def preorder(self, rt):
@@ -102,75 +58,59 @@ class BST:
         self.postorder(rt.right)
         print(rt.data, end=" ")
 
-    # Search a node
-    def search(self, key):
-        temp = self.root
-
-        while temp:
-            if temp.data == key:
-                return True
-
-            elif key < temp.data:
-                temp = temp.left
-
-            else:
-                temp = temp.right
-
-        return False
-
-    # Find minimum and maximum
-    def findminmax(self):
-        if self.root is None:
-            print("\nTree is empty")
+    # Count Leaf Nodes
+    def count_leaf(self, rt):
+        if rt is None:
             return
 
-        temp = self.root
+        if rt.left is None and rt.right is None:
+            self.cnt += 1
 
-        while temp.left:
-            temp = temp.left
+        self.count_leaf(rt.left)
+        self.count_leaf(rt.right)
 
-        print("\nMin:", temp.data)
+    # Count Non-Leaf Nodes
+    def count_non_leaf(self, rt):
+        if rt is None:
+            return
 
-        temp = self.root
+        if rt.left is not None or rt.right is not None:
+            self.cnt += 1
 
-        while temp.right:
-            temp = temp.right
-
-        print("Max:", temp.data)
+        self.count_non_leaf(rt.left)
+        self.count_non_leaf(rt.right)
 
 
 # Driver Code
 b1 = BST()
 
-for val in [100, 10, 450, 4, 65, 300, 500]:
-    b1.insert(Node(val))
+b1.insert(Node(34))
+b1.insert(Node(44))
+b1.insert(Node(54))
+b1.insert(Node(23))
+b1.insert(Node(12))
+b1.insert(Node(345))
+b1.insert(Node(3))
+b1.insert(Node(4))
 
+# Inorder
 print("Inorder:")
 b1.inorder(b1.root)
 
+# Preorder
 print("\n\nPreorder:")
 b1.preorder(b1.root)
 
+# Postorder
 print("\n\nPostorder:")
 b1.postorder(b1.root)
 
-print()
-b1.findminmax()
-
-# Delete node
-b1.root = b1.del_node(b1.root, 65)
-
-print("\nAfter Delete:")
-b1.inorder(b1.root)
-
-# Count leaf nodes
+# Count Leaf Nodes
 b1.cnt = 0
 b1.count_leaf(b1.root)
+print("\n\nTotal Leaf Nodes:", b1.cnt)
 
-print("\nTotal no of non leaf nodes:", b1.cnt)
-
-# Search node
-if b1.search(50):
-    print("\nFound the node")
-else:
-    print("\nNot found")
+# Count Non-Leaf Nodes
+b1.cnt = 0
+b1.count_non_leaf(b1.root)
+print("Total Non-Leaf Nodes:", b1.cnt)

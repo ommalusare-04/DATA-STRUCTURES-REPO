@@ -1,4 +1,2 @@
-
-#     print("\nFound node")
-# else:
-#     print("\nnot found")
+t.right is None:
+            #     self.count+=1
