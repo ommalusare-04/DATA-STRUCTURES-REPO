@@ -44,85 +44,9 @@ class BST:
             print(rt.data, end="  ")
             self.inorder(rt.right)
 
-    # Preorder Traversal (Root, Left, Right)
-    def preorder(self, rt):
-        if rt is None:
-            return
-        else:
-            print(rt.data, end="  ")
-            self.preorder(rt.left)
-            self.preorder(rt.right)
+    
 
-    # Postorder Traversal (Left, Right, Root)
-    def postorder(self, rt):
-        if rt is None:
-            return
-        else:
-            self.postorder(rt.left)
-            self.postorder(rt.right)
-            print(rt.data, end="  ")
-
-    # Minimum Value
-    def minimum(self):
-        if self.root is None:
-            print("Tree is empty")
-            return
-
-        temp = self.root
-
-        while temp.left is not None:
-            temp = temp.left
-
-        print("Minimum value:", temp.data)
-
-    # Maximum Value
-    def maximum(self):
-        if self.root is None:
-            print("Tree is empty")
-            return
-
-        temp = self.root
-
-        while temp.right is not None:
-            temp = temp.right
-
-        print("Maximum value:", temp.data)
-
-    # Delete Node
-    def deleteNode(self, rt, value):
-        if rt is None:
-            return None
-
-        if value < rt.data:
-            rt.left = self.deleteNode(rt.left, value)
-
-        elif value > rt.data:
-            rt.right = self.deleteNode(rt.right, value)
-
-        else:
-            # Case 1: No left child
-            if rt.left is None:
-                return rt.right
-
-            # Case 2: No right child
-            if rt.right is None:
-                return rt.left
-
-            # Case 3: Both children exist
-            succ = self.get_successor(rt)
-            rt.data = succ.data
-            rt.right = self.deleteNode(rt.right, succ.data)
-
-        return rt
-
-    # Find Inorder Successor
-    def get_successor(self, temp):
-        temp = temp.right
-
-        while temp.left is not None:
-            temp = temp.left
-
-        return temp
+    
 
     def search(self,key):
         temp=self.root
@@ -152,13 +76,7 @@ b.insert(Node(50))
 print("INORDER:")
 b.inorder(b.root)
 
-print("\n\nPREORDER:")
-b.preorder(b.root)
 
-print("\n\nPOSTORDER:")
-b.postorder(b.root)
-
-#if value present in the tree return found else return not found
 
 # if b.search(450):
 #     print("\nFound node")
@@ -166,10 +84,8 @@ b.postorder(b.root)
 #     print("\nnot found")
 
 
-if b.search(40):
+if b.search(1000):
     print("\nFound node")
 else:
     print("\nnot found")
 
-
-print(f"total leaf node are:{b.count}")
