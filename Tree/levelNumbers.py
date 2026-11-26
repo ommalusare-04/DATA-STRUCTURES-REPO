@@ -43,13 +43,13 @@ class BST:
         level=0
         arr.append(rt)
         while(cnt<len(arr)):
-            node_count=len(arr)-cnt   # level wise node count
+            node_count=len(arr)-cnt      # level wise node count
             print(f"level {level}:",end=" ")
             for i in range(node_count):
                 temp=arr[cnt]
-                cnt+=1
+                cnt+=1                    # number of nodes visited
 
-                print(temp.data,end=" ")
+                print(temp.data,end=" ")        # visiting node
                 if temp.left:
                     arr.append(temp.left)
                 if temp.right:
